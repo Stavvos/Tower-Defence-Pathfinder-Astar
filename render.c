@@ -14,6 +14,10 @@ void renderPoints(Point points[ROWS][COLS])
       {
         DrawSphere(points[i][j].pos, 0.1, RED);
       }
+      else if (points[i][j].pointState == NOTVALID)
+      {
+        DrawSphere(points[i][j].pos, 0.1, BLUE);
+      }
       else if (points[i][j].pointState == VALID)
       {
         DrawSphere(points[i][j].pos, 0.1, BLACK);

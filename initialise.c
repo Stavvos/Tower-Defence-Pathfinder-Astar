@@ -20,15 +20,39 @@ void initPointsPos(Point points[ROWS][COLS])
     for (int j = 0; j < COLS; j++)
     {
       points[i][j].pos = startPos;
-      points[i][j].pointState = VALID;
       startPos = (Vector3){startPos.x + SPACING, startPos.y, startPos.z};
     }
     startPos = (Vector3){startPos.x, startPos.y, startPos.z + SPACING};
   }
 }
 
+void initialiseNotValidPoints(Point points[ROWS][COLS], int rows, int cols, int indexRow, int indexCol)
+{
+  for (int i = 0; i < rows; i++)
+  {
+    for (int j = 0; j < cols; j++)
+    {
+      points[indexRow + i][indexCol + j].pointState = NOTVALID; 
+    }
+  }
+}
+
 void initPointsState(Point points[ROWS][COLS])
 {
+  
+  for (int i = 0; i < ROWS; i++)
+  {
+    for (int j = 0; j < COLS; j++)
+    {
+      points[i][j].pointState = VALID;   
+    }
+  }
+
   points[0][0].pointState = START;
-  points[ROWS - 1][COLS - 1].pointState = GOAL; 
+  points[ROWS - 1][COLS - 1].pointState = GOAL;
+
+  initialiseNotValidPoints(points, 3, 3, 1, 1); 
+  initialiseNotValidPoints(points, 3, 3, 6, 1); 
+  initialiseNotValidPoints(points, 3, 3, 1, 6); 
+  initialiseNotValidPoints(points, 3, 3, 6, 6); 
 }
