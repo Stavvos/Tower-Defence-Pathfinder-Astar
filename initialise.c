@@ -1,5 +1,6 @@
 #include "raylib.h"
 #include "utils.h"
+#include <stddef.h>
 
 void initCamera(Camera3D* camera)
 {
@@ -44,12 +45,23 @@ void initPointsState(Point points[ROWS][COLS])
   {
     for (int j = 0; j < COLS; j++)
     {
-      points[i][j].pointState = VALID;   
+      points[i][j].pointState = VALID;  
+      points[i][j].row = i;
+      points[i][j].col = j;
+      points[i][j].g = 0;
+      points[i][j].h = 0;
+      points[i][j].f = 0;
+      points[i][j].open = false;
+      points[i][j].closed = false;
+      points[i][j].parent = NULL; 
     }
   }
 
   points[0][0].pointState = START;
+  startNode = &points[0][0];
+
   points[ROWS - 1][COLS - 1].pointState = GOAL;
+  goalNode = &points[ROWS - 1][COLS - 1];
 
   initialiseNotValidPoints(points, 3, 3, 1, 1); 
   initialiseNotValidPoints(points, 3, 3, 6, 1); 

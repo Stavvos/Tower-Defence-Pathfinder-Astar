@@ -1,5 +1,15 @@
 #include "raylib.h"
 
+void drawPath()
+{
+  Point *curr = goalNode;
+  while (curr != NULL)
+  {
+    DrawCube(curr->pos, 0.5f, 0.2f, 0.5f, GREEN);
+    curr = curr->parent;
+  }
+}
+
 void renderPoints(Point points[ROWS][COLS])
 {
   for (int i = 0; i < ROWS; i++)

@@ -2,6 +2,10 @@
 #include "utils.h"
 #include "initialise.c"
 #include "render.c"
+#include <math.h>
+#include <stddef.h>
+#include <stdio.h>
+#include "Astar.c"
 
 int main(void)
 {
@@ -16,26 +20,33 @@ int main(void)
   initCamera(&camera);
 
   //initialise the maze
-  Point points[ROWS][COLS];
   initPointsPos(points);
   initPointsState(points);
+  
+  //initialise the path  
+  Astar();
+  bool changePath = false;
 
   // Main game loop
   while (!WindowShouldClose())    
   {
+    
     UpdateCamera(&camera, CAMERA_FREE);
+    
+    handleChangePath(&changePath, points);
 
     BeginDrawing();
       ClearBackground(RAYWHITE);
    
       BeginMode3D(camera);
         renderPoints(points);
+	drawPath();
       EndMode3D();
-
+      
     EndDrawing();
   }
 
-    CloseWindow();        // Close window and OpenGL context
+  CloseWindow();        // Close window and OpenGL context
 
-    return 0;
+  return 0;
 }

@@ -18,7 +18,18 @@ typedef enum PointState
 typedef struct Point
 {
   Vector3 pos;
+  int row;
+  int col;
   PointState pointState;
+  float f;
+  float h;
+  float g;
+  bool open;
+  bool closed;
+  struct Point *parent;
 } Point; 
 
+extern Point *startNode;
+extern Point *goalNode;
+extern Point points[ROWS][COLS];
 #endif

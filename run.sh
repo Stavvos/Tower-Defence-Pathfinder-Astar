@@ -2,7 +2,7 @@
 
 rm ./pathFinder
 
-if gcc -Wall -pedantic -o pathFinder main.c -lraylib -lGL -lm -lpthread -ldl -lrt -lX11; then
+if gcc -Wall -pedantic -o pathFinder main.c utils.c -lraylib -lGL -lm -lpthread -ldl -lrt -lX11; then
   echo compiled
 else
   exit $?
