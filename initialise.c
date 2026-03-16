@@ -10,7 +10,7 @@ void initCamera(Camera3D* camera)
   camera->projection = CAMERA_PERSPECTIVE;             // Camera projection type
 }
 
-void initPoints(Point points[ROWS][COLS])
+void initPointsPos(Point points[ROWS][COLS])
 {
   Vector3 startPos = {0};
 
@@ -20,8 +20,15 @@ void initPoints(Point points[ROWS][COLS])
     for (int j = 0; j < COLS; j++)
     {
       points[i][j].pos = startPos;
+      points[i][j].pointState = VALID;
       startPos = (Vector3){startPos.x + SPACING, startPos.y, startPos.z};
     }
     startPos = (Vector3){startPos.x, startPos.y, startPos.z + SPACING};
   }
+}
+
+void initPointsState(Point points[ROWS][COLS])
+{
+  points[0][0].pointState = START;
+  points[ROWS - 1][COLS - 1].pointState = GOAL; 
 }

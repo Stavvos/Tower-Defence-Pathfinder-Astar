@@ -8,7 +8,7 @@ int main(void)
   const int screenWidth = GetScreenWidth();
   const int screenHeight = GetScreenHeight();
 
-  InitWindow(screenWidth, screenHeight, "Pathfinder Example");
+  InitWindow(screenWidth, screenHeight, "Pathfinder Astar");
 
   SetTargetFPS(60);             
 
@@ -17,7 +17,8 @@ int main(void)
 
   //initialise the maze
   Point points[ROWS][COLS];
-  initPoints(points);
+  initPointsPos(points);
+  initPointsState(points);
 
   // Main game loop
   while (!WindowShouldClose())    
@@ -25,11 +26,13 @@ int main(void)
     UpdateCamera(&camera, CAMERA_FREE);
 
     BeginDrawing();
-        ClearBackground(RAYWHITE);
-          BeginMode3D(camera);
-	    renderPoints(points);
-	  EndMode3D();
-      EndDrawing();
+      ClearBackground(RAYWHITE);
+   
+      BeginMode3D(camera);
+        renderPoints(points);
+      EndMode3D();
+
+    EndDrawing();
   }
 
     CloseWindow();        // Close window and OpenGL context
