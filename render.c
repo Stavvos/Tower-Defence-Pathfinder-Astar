@@ -5,7 +5,10 @@ void drawPath()
   Point *curr = goalNode;
   while (curr != NULL)
   {
-    DrawCube(curr->pos, 0.5f, 0.2f, 0.5f, GREEN);
+    if (curr->pointState == VALID)
+    {
+      DrawCube(curr->pos, 3.0f, 3.0f, 3.0f, GREEN);
+    }
     curr = curr->parent;
   }
 }
@@ -18,15 +21,15 @@ void renderPoints(Point points[ROWS][COLS])
     {
       if (points[i][j].pointState == START)
       {
-        DrawSphere(points[i][j].pos, 0.1, GREEN);
+        DrawCube(points[i][j].pos, 3.0f, 3.0f, 3.0f, BROWN);
       }
       else if (points[i][j].pointState == GOAL)
       {
-        DrawSphere(points[i][j].pos, 0.1, RED);
+        DrawCube(points[i][j].pos, 3.0f, 3.0f, 3.0f, RED);
       }
       else if (points[i][j].pointState == NOTVALID)
       {
-        DrawSphere(points[i][j].pos, 0.1, BLUE);
+        DrawCube(points[i][j].pos, 3.0f, 3.0f, 3.0f, BLUE);
       }
       else if (points[i][j].pointState == VALID)
       {
