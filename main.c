@@ -5,7 +5,7 @@
 #include <math.h>
 #include <stddef.h>
 #include <stdio.h>
-#include "Astar.c"
+#include "path.c"
 
 int main(void)
 {
@@ -26,6 +26,7 @@ int main(void)
   //initialise the path  
   Astar();
   bool changePath = false;
+  Point *head = reversePath(goalNode); 
 
   // Main game loop
   while (!WindowShouldClose())    
@@ -33,20 +34,20 @@ int main(void)
     
     UpdateCamera(&camera, CAMERA_FREE);
     
-    handleChangePath(&changePath, points);
-
+    handleChangePath(&changePath, points, head);
+     
     BeginDrawing();
       ClearBackground(RAYWHITE);
    
       BeginMode3D(camera);
         renderPoints(points);
-	drawPath();
+	renderPath(head);
+	renderBarriers(points);
       EndMode3D();
-      
     EndDrawing();
   }
 
-  CloseWindow();        // Close window and OpenGL context
+  CloseWindow();       
 
   return 0;
 }

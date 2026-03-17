@@ -114,7 +114,24 @@ void ResetGridForAStar(Point points[ROWS][COLS])
   }
 }
 
-void handleChangePath(bool* changePath, Point points[ROWS][COLS])
+Point* reversePath(Point* head)
+{
+  Point *previous = NULL;
+  Point *current = head;
+  Point *next = NULL;
+
+  while(current != NULL)
+  {
+    next = current->parent;
+    current->parent = previous;
+    previous = current;
+    current = next;
+  }
+
+  return previous;
+}
+
+void handleChangePath(bool* changePath, Point points[ROWS][COLS], Point* head)
 {
   if (IsKeyPressed(KEY_P) && !(*changePath))
   {
@@ -122,6 +139,7 @@ void handleChangePath(bool* changePath, Point points[ROWS][COLS])
     *changePath = true;
     ResetGridForAStar(points);
     Astar();
+    head = reversePath(goalNode);
   }
   else if (IsKeyPressed(KEY_P) && *changePath)
   {
@@ -129,5 +147,6 @@ void handleChangePath(bool* changePath, Point points[ROWS][COLS])
     *changePath = false;
     ResetGridForAStar(points);
     Astar();
+    head = reversePath(goalNode);
   }
 }
