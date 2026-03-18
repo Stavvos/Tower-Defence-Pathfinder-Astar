@@ -6,13 +6,7 @@
 #include <stddef.h>
 #include <stdio.h>
 #include "path.c"
-
-void renderCreep(Vector3 pos)
-{
-  Vector3 position = (Vector3){pos.x, 2.0f, pos.z};
-
-  DrawCube(position, 1.0f, 1.0f, 1.0f, BLACK);
-}
+#include "creep.c"
 
 int main(void)
 {
@@ -35,6 +29,11 @@ int main(void)
   bool changePath = false;
   Point path[ROWS * COLS];
   buildPathArray(path);
+  int pathSize = 19;
+  
+  //initilaise creep and creep movement variables
+  Creep creep;
+  initCreep(&creep, path);
 
   // Main game loop
   while (!WindowShouldClose())    
@@ -42,8 +41,10 @@ int main(void)
     
     UpdateCamera(&camera, CAMERA_FREE);
     
-    handleChangePath(&changePath, points, path);
-     
+    //update states 
+    handleChangePath(&changePath, points, path, &creep);
+    creepMovementHandler(&creep.pos, path[creep.targetPosIndex].pos, &creep.targetPosIndex, pathSize);
+
     BeginDrawing();
       ClearBackground(RAYWHITE);
    
@@ -51,7 +52,7 @@ int main(void)
         renderPoints(points);
 	renderPath(path);
 	renderBarriers(points);
-	renderCreep(path[0].pos);
+	renderCreep(creep.pos);
       EndMode3D();
     EndDrawing();
   }

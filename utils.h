@@ -29,6 +29,12 @@ typedef struct Point
   struct Point *parent;
 } Point; 
 
+typedef struct Creep
+{
+  Vector3 pos;
+  int targetPosIndex;
+} Creep;
+
 extern Point *startNode;
 extern Point *goalNode;
 extern Point points[ROWS][COLS];

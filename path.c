@@ -147,16 +147,9 @@ void buildPathArray(Point path[])
     start++;
     end--;  
   }
-  
-  //print the array
-  for (int i = 0; i < index; i++)
-  {
-    printf("\n%f %f %f\n", path[i].pos.x, path[i].pos.y, path[i].pos.z);
-  }
-
 }
 
-void handleChangePath(bool* changePath, Point points[ROWS][COLS], Point path[])
+void handleChangePath(bool* changePath, Point points[ROWS][COLS], Point path[], Creep* creep)
 {
   if (IsKeyPressed(KEY_P) && !(*changePath))
   {
@@ -165,6 +158,8 @@ void handleChangePath(bool* changePath, Point points[ROWS][COLS], Point path[])
     ResetGridForAStar(points);
     Astar();
     buildPathArray(path);
+    creep->pos = path[0].pos;
+    creep->targetPosIndex = 1;
   }
   else if (IsKeyPressed(KEY_P) && *changePath)
   {
@@ -173,5 +168,7 @@ void handleChangePath(bool* changePath, Point points[ROWS][COLS], Point path[])
     ResetGridForAStar(points);
     Astar();
     buildPathArray(path);
+    creep->pos = path[0].pos;
+    creep->targetPosIndex = 1;
   }
 }

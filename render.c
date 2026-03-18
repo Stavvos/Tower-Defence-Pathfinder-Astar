@@ -44,4 +44,11 @@ void renderPoints(Point points[ROWS][COLS])
       DrawSphere(points[i][j].pos, 0.1, BLACK);
     }
   }
-}	
+}
+
+void renderCreep(Vector3 pos)
+{
+  Vector3 position = (Vector3){pos.x, 2.0f, pos.z};
+
+  DrawCube(position, 1.0f, 1.0f, 1.0f, BLACK);
+}

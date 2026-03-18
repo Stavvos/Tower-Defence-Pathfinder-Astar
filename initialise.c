@@ -68,3 +68,9 @@ void initPointsState(Point points[ROWS][COLS])
   initialiseNotValidPoints(points, 3, 3, 1, 6); 
   initialiseNotValidPoints(points, 3, 3, 6, 6); 
 }
+
+void initCreep(Creep* creep, Point path[])
+{
+  creep->pos = path[0].pos;
+  creep->targetPosIndex = 1;
+}
