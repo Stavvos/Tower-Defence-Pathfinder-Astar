@@ -114,24 +114,49 @@ void ResetGridForAStar(Point points[ROWS][COLS])
   }
 }
 
-Point* reversePath(Point* head)
+void buildPathArray(Point path[])
 {
-  Point *previous = NULL;
-  Point *current = head;
-  Point *next = NULL;
-
-  while(current != NULL)
+  //reset the path states 
+  for (int i = 0; i < ROWS * COLS; i++)
   {
-    next = current->parent;
-    current->parent = previous;
-    previous = current;
-    current = next;
+    path[i].pointState = NOTVALID; 
+  }	  
+  
+  //iterate the linked list from Astar()  
+  Point *current = goalNode;
+  int index = 0;
+
+  while (current != NULL)
+  {
+    path[index] = *current;
+    index++;
+    current = current->parent; 
+  }
+  
+  int end = index - 1;
+  int start = 0;
+  Point temp = {0};
+
+  //reverse the path array
+  while(end > start)
+  {
+    temp = path[end];
+    path[end] = path[start];
+    path[start] = temp;
+
+    start++;
+    end--;  
+  }
+  
+  //print the array
+  for (int i = 0; i < index; i++)
+  {
+    printf("\n%f %f %f\n", path[i].pos.x, path[i].pos.y, path[i].pos.z);
   }
 
-  return previous;
 }
 
-void handleChangePath(bool* changePath, Point points[ROWS][COLS], Point* head)
+void handleChangePath(bool* changePath, Point points[ROWS][COLS], Point path[])
 {
   if (IsKeyPressed(KEY_P) && !(*changePath))
   {
@@ -139,7 +164,7 @@ void handleChangePath(bool* changePath, Point points[ROWS][COLS], Point* head)
     *changePath = true;
     ResetGridForAStar(points);
     Astar();
-    head = reversePath(goalNode);
+    buildPathArray(path);
   }
   else if (IsKeyPressed(KEY_P) && *changePath)
   {
@@ -147,6 +172,6 @@ void handleChangePath(bool* changePath, Point points[ROWS][COLS], Point* head)
     *changePath = false;
     ResetGridForAStar(points);
     Astar();
-    head = reversePath(goalNode);
+    buildPathArray(path);
   }
 }

@@ -1,25 +1,22 @@
 #include "raylib.h"
 
-void renderPath(Point* head)
+void renderPath(Point path[])
 {
-  Point *current = head;
 
-  while (current != NULL)
+  for (int i = 0; i < ROWS * COLS; i++)
   {
-    if (current->pointState == VALID)
+    if (path[i].pointState == VALID)
     {
-      DrawCube(current->pos, 3.0f, 3.0f, 3.0f, GREEN);
+      DrawCube(path[i].pos, 3.0f, 3.0f, 3.0f, GREEN);
     }
-    else if (current->pointState == START)
+    else if (path[i].pointState == START)
     {
-      DrawCube(current->pos, 3.0f, 3.0f, 3.0f, BROWN);
+      DrawCube(path[i].pos, 3.0f, 3.0f, 3.0f, BROWN);
     }
-    else if (current->pointState == GOAL)
+    else if (path[i].pointState == GOAL)
     {
-      DrawCube(current->pos, 3.0f, 3.0f, 3.0f, RED);
+      DrawCube(path[i].pos, 3.0f, 3.0f, 3.0f, RED);
     }
-    
-    current = current->parent;
   }
 
 }
