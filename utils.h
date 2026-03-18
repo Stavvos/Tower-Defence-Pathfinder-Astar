@@ -35,6 +35,13 @@ typedef struct Creep
   int targetPosIndex;
 } Creep;
 
+typedef struct Path
+{
+  int pathSize;
+  bool changePath;
+  Point points[ROWS*COLS];
+} Path;
+
 extern Point *startNode;
 extern Point *goalNode;
 extern Point points[ROWS][COLS];
