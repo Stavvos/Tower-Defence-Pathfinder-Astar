@@ -63,10 +63,10 @@ void initPointsState(Point points[ROWS][COLS])
   points[ROWS - 1][COLS - 1].pointState = GOAL;
   goalNode = &points[ROWS - 1][COLS - 1];
 
-  initialiseNotValidPoints(points, 3, 3, 1, 1); 
-  initialiseNotValidPoints(points, 3, 3, 6, 1); 
-  initialiseNotValidPoints(points, 3, 3, 1, 6); 
-  initialiseNotValidPoints(points, 3, 3, 6, 6); 
+  initialiseNotValidPoints(points, 4, 4, 1, 1); 
+  initialiseNotValidPoints(points, 4, 4, 6, 1); 
+  initialiseNotValidPoints(points, 4, 4, 1, 6); 
+  initialiseNotValidPoints(points, 4, 4, 6, 6); 
 }
 
 void initPath(Path* path)
